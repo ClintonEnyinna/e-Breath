@@ -1,6 +1,5 @@
 import React from 'react';
 import {View} from 'react-native';
-import Graph from './components/Graph';
 import SerialPort from './components/SerialPort';
 
 const App = () => {
