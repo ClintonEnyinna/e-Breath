@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
       shadowRadius: 10,
       shadowOpacity: 1,
       elevation: 20,
-      marginLeft:Dimensions.get('window').width * 0.17,
+      marginLeft:Dimensions.get('window').width * 0.05,
     },
     btnPress:{
         width: Dimensions.get('window').width * 0.1,
@@ -29,13 +29,13 @@ export const styles = StyleSheet.create({
         backgroundColor:'#42C2F4' ,
         justifyContent: 'center',
         alignItems:'center',
-        borderColor: '#000',
+        borderColor: '#3B3B3A',
         borderWidth: 6,
         shadowColor: '#3B3B3A',
         shadowRadius: 10,
         shadowOpacity: 1,
         elevation: 20,
-        marginLeft:Dimensions.get('window').width * 0.17,
+        marginLeft:Dimensions.get('window').width * 0.05,
       },
     
     Numberbtn:{
@@ -53,5 +53,12 @@ export const styles = StyleSheet.create({
         color:'#fff',
         fontFamily:'Times New Roman',
         alignItems:"center"  
+    },
+    container: {
+      width:'45%',
+      marginLeft: Dimensions.get('window').width * 0.05,
+      marginRight: 0,
+      alignItems: 'stretch',
+      justifyContent: 'center',
     },
   });

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, TouchableOpacity} from 'react-native';
-import CircleSlider from './SliderButton';
-import {styles} from './StyleButton' ;
+import Slider from 'react-native-slider';
+import {styles} from './StyleButton';
  class Button extends React.Component{
      constructor(props){
             super(props);
@@ -13,6 +13,16 @@ import {styles} from './StyleButton' ;
                 pressStatus2: false,
                 Value3: 0,
                 pressStatus3: false,
+                //slider
+                valueSli:5,
+                abi:true,
+                ValueStep:1,
+                ChangeValor:10,
+                //buttons
+                valueB1:5,
+                valueB2:8,
+                valueB3:56
+                
             };
 
             this.B1Onclick = this.B1Onclick.bind(this);
@@ -21,44 +31,71 @@ import {styles} from './StyleButton' ;
      }
 
      B1Onclick(){
-         //le damos un nuevo valor con el on click
-           const { Value: VA } = this.state;
-           this.setState({ Value: VA + 1 });
-           if (VA % 2 == 0){
-            this.setState({ pressStatus: true });
-           }
-           else{
-            this.setState({ pressStatus: false });
-           }
+         if(this.state.Value2 % 2 == 0 && this.state.Value3 % 2 == 0){
+                const { Value: VA } = this.state;
+                this.setState({ Value: VA + 1 });
+                
+                if (VA % 2 == 0){
+                    this.state.valueSli=this.state.valueB1;
+                    this.setState({ pressStatus: true });
+                    this.setState({ abi: false });
+                    this.setState({ ValueStep:1});
+                    this.setState({ ChangeValor:10});
+                }
+                else{
+                    this.setState({ pressStatus: false });
+                    this.setState({ abi: true });
+                    this.setState({valueB1: this.state.valueSli});
+                }
+            }
+            else{
+
+            }
      }
      B2Onclick(){
-        //le damos un nuevo valor con el on click
-          const { Value2: VA2 } = this.state;
-          this.setState({ Value2: VA2 + 1 });
-          if (VA2 % 2 == 0){
-           this.setState({ pressStatus2: true });
-          }
-          else{
-           this.setState({ pressStatus2: false });
-          }
+        if(this.state.Value % 2 == 0 && this.state.Value3 % 2 == 0){
+                const { Value2: VA2 } = this.state;
+                this.setState({ Value2: VA2 + 1 });
+                if (VA2 % 2 == 0){
+                    this.state.valueSli=this.state.valueB2;
+                    this.setState({ pressStatus2: true });
+                    this.setState({ abi: false });
+                    this.setState({ ValueStep:.1});
+                    this.setState({ ChangeValor:10});
+                }
+                else{
+                    this.setState({ pressStatus2: false });
+                    this.setState({ abi: true });
+                    this.setState({valueB2: this.state.valueSli});
+                }
+        }
     }
     B3Onclick(){
-        //le damos un nuevo valor con el on click
-          const { Value3: VA3 } = this.state;
-          this.setState({ Value3: VA3 + 1 });
-          if (VA3 % 2 == 0){
-           this.setState({ pressStatus3: true });
-          }
-          else{
-           this.setState({ pressStatus3: false });
-          }
+        if(this.state.Value2 % 2 == 0 && this.state.Value % 2 == 0){
+                    const { Value3: VA3 } = this.state;
+                    this.setState({ Value3: VA3 + 1 });
+                    if (VA3 % 2 == 0){
+                        this.state.valueSli=this.state.valueB3;
+                    this.setState({ pressStatus3: true }); 
+                        this.setState({ abi: false });
+                        this.setState({ ValueStep:1});
+                        this.setState({ ChangeValor:100});
+                    }
+                    else{
+                    this.setState({ pressStatus3: false });
+                    this.setState({ abi: true });
+                    this.setState({valueB3: this.state.valueSli});
+                    }
+        }
     }
 
 
     render(){
-        const { Value } = this.state;
+        const { abi, valueSli, ValueStep,ChangeValor, valueB1, valueB2, valueB3 } = this.state;
+        
                 return(
                             <View style={styles.Buttons} >
+                               
                             <TouchableOpacity style={
                                     this.state.pressStatus
                                         ? styles.btnPress
@@ -68,8 +105,11 @@ import {styles} from './StyleButton' ;
                                     this.state.pressStatus
                                         ? styles.NumberbtnPress
                                         : styles.Numberbtn
-                                }>{Value}</Text>
+                                }>{this.state.pressStatus
+                                    ? valueSli
+                                    : valueB1}</Text>
                                 <Text style={styles.textbtn}>mL</Text>
+                            
                             </TouchableOpacity>
 
 
@@ -83,7 +123,9 @@ import {styles} from './StyleButton' ;
                                     this.state.pressStatus2
                                         ? styles.NumberbtnPress
                                         : styles.Numberbtn
-                                }>8.0</Text>
+                                }>{this.state.pressStatus2
+                                    ? valueSli
+                                    : valueB2}</Text>
                                 <Text style={styles.textbtn}>L/min</Text>
                             </TouchableOpacity>
 
@@ -97,11 +139,26 @@ import {styles} from './StyleButton' ;
                                     this.state.pressStatus3
                                         ? styles.NumberbtnPress
                                         : styles.Numberbtn
-                                }>56</Text>
+                                }>{ this.state.pressStatus3
+                                    ? valueSli
+                                    : valueB3}</Text>
                                 <Text style={styles.textbtn}>bpm</Text>
                             </TouchableOpacity>
 
+
+                            <View style={styles.container}>
+                                    <Slider
+                                        minimumValue={0}
+                                        maximumValue={ChangeValor}
+                                        disabled={abi}
+                                        step={ValueStep}
+                                        minimumTrackTintColor='#1fb28a'
+                                        maximumTrackTintColor='#d3d3d3'
+                                        value={this.state.valueSli}
+                                        onValueChange={(valueSli) => this.setState({valueSli})} />
                             </View>
+
+                         </View>
                 );
     }   
 }
